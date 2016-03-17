@@ -1,0 +1,134 @@
+#前提条件是利用ImageJ将文件保存为BMP  512*512灰度图
+
+
+#当前程序需要到数据所在文件夹以sudo python 互动命令行运行 因为该文件夹下全是bmp灰#度图
+#导入需求包
+
+import numpy as np 
+import Image
+import pandas as pd
+import os
+import matplotlib.pyplot as plt
+
+#读入文件
+filelist=np.array(os.listdir(os.getcwd()))  
+ls=np.zeros(shape=(filelist.size,512*512))
+x=0
+for i in filelist:
+  
+  #f[x]=Image.open(i)
+  #将文件读入一维数组
+  ls[x]=np.array(Image.open(i).getdata())
+  x=x+1
+
+row,col=ls.shape
+#转换为pandas对象
+df=pd.DataFrame(ls,dtype=int)
+#将262444列 也就是最后一列后面加入类别标号 red:1 blue:0
+df.loc[:,-1]=0
+
+#保存到 /home 下csv文件
+df.to_csv('/home/blue.csv')
+#更改到red_resize工作路径
+os.chdir('/home/joyivan/downloads/\xe6\x96\xb0\xe5\xbb\xba\xe6\x96\x87\xe4\xbb\xb6\xe5\xa4\xb9\xe7\xad\x892\xe4\xb8\xaa\xe6\x96\x87\xe4\xbb\xb6/red_resize')
+
+
+#读取目录下的csv文件到x
+x=pd.read_csv('red.csv')
+x=np.array(x)
+#删除第一列标号
+x=x[:,1:]
+
+y=pd.read_csv('blue.csv')
+y=np.array(y)
+y=y[:,1:]
+z=np.vstack((x,y))
+
+#随机取样形成train 和 test 并分开train_x 与train_y  test_x test_y
+np.random.shuffle(z)
+train,test=z[:200,:],z[201:,:]
+train_x=train[:,:262144]
+train_y=train[:,262144]
+train_x=train_x.astype(np.float32)
+#将读出来的X一维数组变成512×512
+#d=a.reshape((2,4))
+
+#save current data to filesystem
+import cPickle as ck
+myfile1=file('train.data','a')
+ck.dump(train,myfile1)
+myfile2=file('test.data','a')
+ck.dump(test,myfile2)
+myfile3=file('z.data','a')
+ck.dump(z,myfile3)
+#load data from file  eg:
+ myFile =file('z.data','r')
+ myList=p.load(myFile)
+
+#更改大小目的时显示样本
+ll=y[3,:].reshape((256,256))
+#灰度参数
+cmap = plt.cm.gray
+
+plt.imshow(ll,cmap=cmap)
+plt.show()
+
+
+
+
+
+#keras 多层感知机
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation
+from keras.optimizers import Adadelta
+
+model = Sequential()
+# Dense(64) is a fully-connected layer with 64 hidden units.
+# in the first layer, you must specify the expected input data shape:
+# here, 20-dimensional vectors.
+model.add(Dense(100000, input_dim=65536, init='uniform'))
+model.add(Activation('tanh'))
+model.add(Dropout(0.5))
+model.add(Dense(100000, init='uniform'))
+model.add(Activation('tanh'))
+model.add(Dropout(0.5))
+model.add(Dense(1, init='uniform'))
+model.add(Activation('softmax'))
+
+sgd = keras.optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=1e-06)
+model.compile(loss='categorical_crossentropy',
+              optimizer=sgd)
+
+model.fit(X_train, y_train,
+          nb_epoch=20,
+          batch_size=16,
+          show_accuracy=True)
+score = model.evaluate(X_test, y_test, batch_size=16)
+
+
+
+
+
+
+
+#y 30 个点  连续每两个时一个坐标   48 为归一化的逆运算 
+def plot_sample(x, y, axis):
+    img = x.reshape(96, 96)
+    axis.imshow(img, cmap='gray')
+    axis.scatter(y[0::2] * 48 + 48, y[1::2] * 48 + 48, marker='x', s=10)
+
+X, _ = load(test=True)
+y_pred = net1.predict(X)
+
+fig = pyplot.figure(figsize=(6, 6))
+fig.subplots_adjust(
+    left=0, right=1, bottom=0, top=1, hspace=0.05, wspace=0.05)
+
+for i in range(16):
+    ax = fig.add_subplot(4, 4, i + 1, xticks=[], yticks=[])
+    plot_sample(X[i], y_pred[i], ax)
+
+pyplot.show()
+
+
+
