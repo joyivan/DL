@@ -1,4 +1,5 @@
 #test git hub
+#test git hub second time
 def zeroMean(dataMat):
    meanVal=np.mean(dataMat,axis=0)     #按列求均值，即求各个特征的均值  
    newData=dataMat-meanVal
