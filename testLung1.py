@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #lalalal
-=======
-#test remote
->>>>>>> refs/remotes/origin/master
 import numpy as np 
 import Image
 import pandas as pd
