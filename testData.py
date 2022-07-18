@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import pickle
 import re
 import os
@@ -20,4 +21,9 @@ for i in filelist:
 
 print(filelist)
 imageData=temp_file[0][b'data']
+image=imageData[0].reshape((3,32,32))
+image=image.transpose((1,2,0))
+print(image.shape)
+plt.imshow(image)
+plt.show()
 print(imageData[0].shape)
