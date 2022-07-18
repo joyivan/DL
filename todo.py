@@ -1,5 +1,6 @@
+#today is good day which comes from mbp
 #test git push cach user and pwd
-import numpy as np 
+import numpy as np
 import Image
 import pandas as pd
 import os
@@ -7,9 +8,9 @@ import matplotlib.pyplot as plt
 
 
 #def readData()
-  
+
   xs=[]
-    
+
   for year in np.arange(1999,2016,1):
 
       for month in np.arange(1,13,1):
@@ -28,4 +29,4 @@ import matplotlib.pyplot as plt
       else :
          yyyy=np.concatenate((yyyy,yyy))
 
-        
+
