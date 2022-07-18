@@ -27,7 +27,6 @@ for i in filelist:
 metaDict=unpickle('batches.meta')
 print(metaDict.keys())
 metaLabel_names=metaDict[b'label_names']
-os.chdir(os.path.join(dataDir,"train"))
 for i in temp_file:
     for j in range(len(i[b'filenames'])):
        image=i[b'data'][j].reshape((3,32,32))
@@ -37,4 +36,14 @@ for i in temp_file:
        creatDir(os.path.join(dataDir,"train",str(imageLabel)))
        cv2.imwrite(os.path.join(dataDir,"train",str(imageLabel),str(imageFileName,'utf-8')),image)
 
-print("task finished!")
+print("train data processing task finished!")
+
+test_batch_file=unpickle('test_batch')
+for j in range(len(test_batch_file[b'filenames'])):
+    image = test_batch_file[b'data'][j].reshape((3, 32, 32))
+    image = image.transpose((1, 2, 0))
+    imageLabel = test_batch_file[b'labels'][j]
+    imageFileName = test_batch_file[b'filenames'][j]
+    creatDir(os.path.join(dataDir, "test", str(imageLabel)))
+    cv2.imwrite(os.path.join(dataDir, "test", str(imageLabel), str(imageFileName, 'utf-8')), image)
+print("test data processing task finished!")
