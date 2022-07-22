@@ -16,7 +16,9 @@ def saveFile(DIR,fileName,data):
     print('save file finished!')
 os.chdir(workDir)
 trainLabel=[]
+trainFileName=[]
 validLabel=[]
+validFileName=[]
 for root,dirs,files in os.walk(os.path.join(workDir,'train')):
     for dir in dirs:
         imgList=glob.glob(os.path.join(root,dir,'*.png'))
@@ -28,11 +30,14 @@ for root,dirs,files in os.walk(os.path.join(workDir,'train')):
                 creatDir(os.path.join(workDir,'train'))
                 shutil.copy(imgList[indexOfFileList],os.path.join(workDir,'train'))
                 fileTemp=os.path.split(imgList[indexOfFileList])
-                trainLabel.append({fileTemp[-1]:dir})
+                trainLabel.append(dir)
+                trainFileName.append(fileTemp[-1])
+
             else:
                 creatDir(os.path.join(workDir,'valid'))
                 shutil.copy(imgList[indexOfFileList], os.path.join(workDir, 'valid'))
                 fileTemp=os.path.split(imgList[indexOfFileList])
-                validLabel.append({fileTemp[-1]:dir})
-saveFile(workDir,'trainLabel',trainLabel)
-saveFile(workDir,'validLabel',validLabel)
+                validLabel.append(dir)
+                validFileName.append(fileTemp[-1])
+saveFile(workDir,'trainData',[trainFileName,trainLabel])
+saveFile(workDir,'validData',[validFileName,validLabel])
