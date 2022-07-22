@@ -29,13 +29,12 @@ def getIMGfromOrgFile():
     os.chdir(workDir)
     pattern = "data_"
 
-    def creatDir(Dir):
 
-        for i in filelist:
-        if re.match(pattern,i):
+    for i in filelist:
+       if re.match(pattern,i):
             print('ok')
             temp_file.append(unpickle(i))
-        else:
+       else:
             print('fail')
     metaDict=unpickle('batches.meta')
     print(metaDict.keys())

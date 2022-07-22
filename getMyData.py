@@ -22,8 +22,9 @@ class getData(Dataset):
     def __len__(self):
         return len(self.temp)
     def __getitem__(self, index):
-        imgName=self.temp[index][0]
-        imgLabel = self.temp[index][1]
-        img=Image.open(os.path.join(dataDir),imgName)
+        imgName=self.temp[0][index]
+        imgLabel = self.temp[1][index]
+        print(os.path.join(dataDir, self.flag, imgName))
+        img=Image.open(os.path.join(dataDir,self.flag,imgName),'r')
         imgTensor=self.transform(img)
-        retrun imgTensor,imgLabel
+        return imgTensor,imgLabel
