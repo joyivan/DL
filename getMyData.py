@@ -2,6 +2,7 @@ import os.path
 
 from PIL import Image
 from torch.utils.data import Dataset
+from torch.utils.data import DataLoader
 from readPickleFile import readFile as rp
 from torchvision import transforms
 '''
@@ -24,9 +25,9 @@ class getData(Dataset):
         else:
             self.transform=transforms.Compose([transforms.ToTensor(),
                                                transforms.Normalize((0.4478,0.4835,0.4921),(0.2627,0.2438,0.2468))])
-            self.flag=flag
+        self.flag=flag
     def __len__(self):
-        return len(self.temp)
+        return len(self.temp[0])
     def __getitem__(self, index):
         imgName=self.temp[0][index]
         imgLabel = self.temp[1][index]
@@ -34,3 +35,14 @@ class getData(Dataset):
         img=Image.open(os.path.join(dataDir,self.flag,imgName),'r')
         imgTensor=self.transform(img)
         return imgTensor,imgLabel
+#ain function is testing the getData class above
+if __name__=='__main__':
+    dataset=getData(flag='train')
+    dataloader=DataLoader(dataset=dataset,batch_size=4,shuffle=False,num_workers=2)
+    dataIter=iter(dataloader)
+    x,y=dataIter.next()
+    print(x)
+    print(y)
+    x1,y1=dataIter.next()
+    print(x1)
+    print(y1)
