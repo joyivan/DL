@@ -9,6 +9,11 @@ import os
 import matplotlib.pyplot as plt
 import torch
 import time
+class mian:
+    attr1='面'
+    def __init__(self,manager_name):
+        self.manager_name=manager_name
+
 def decor(func):
     def wrapper(*arg):
         t1=time.time()
@@ -50,6 +55,9 @@ if __name__=='__main__':
     print(add(1,3))
     print(torch.cuda.is_available())
 '''
+one_mian=mian('李子荣')
+print(one_mian.attr1)
+print(one_mian.manager_name)
 man()
 #def readData()
 #woman()
