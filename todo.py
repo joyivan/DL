@@ -22,8 +22,13 @@ def decor(func):
 def add(x,y):
     return x+y
 def panduan(sex):
+    print('panduan function:{}'.format(sex))
     def func1(func):
+         print('func1 function:{}'.format(func))
+         print('in func1 funcName is {}'.format(func.__name__))
+
          def func2():
+             print('func2 function')
              if sex=='boy':
                  print('buy car!')
              elif sex=='girl':
@@ -47,7 +52,7 @@ if __name__=='__main__':
 '''
 man()
 #def readData()
-woman()
+#woman()
 xs=[]
 '''
 for year in np.arange(1999,2016,1):
