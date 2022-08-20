@@ -2,6 +2,7 @@
 #e212121212   big machine from 
 #test git push cach user and pwd
 #test mbp from  20220728
+#test from 512
 import numpy as np
 from PIL import Image
 import pandas as pd
