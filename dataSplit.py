@@ -1,5 +1,4 @@
 import os
-import csv
 import glob
 import random
 import shutil
