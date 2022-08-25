@@ -2,7 +2,7 @@ import pydicom
 import argparse
 import os
 import glob
-
+#sort jpg from dicom information
 work_dir='/media/joyivan/OLD/data/CT_MD_JPG/'
 
 if __name__ == '__main__':
@@ -42,7 +42,12 @@ if __name__ == '__main__':
                 fileName=sliceLocationFileNameListDict[j]
                 part1,file=os.path.split(str(fileName))
                 #print("result:"+file)
-                print(f'dir is {pat1},filename is {file}')
-                os.rename(fileName,part1+'/check'+"IM"+str(fileNo).zfill(4)+'.jpg')
+                print(f'dir is {part1},filename is {file}')
+                os.rename(fileName[:-4]+'.jpg',part1+'/check'+"IM"+str(fileNo).zfill(4)+'.jpg')
                 fileNo+=1
             print(dir+'rename files:'+str(fileNo))
+    for root, dirs, files in os.walk(workDIR):
+        for dir in dirs:
+            jpgList = glob.glob(os.path.join(root, dir, '*.jpg'))
+            for i in jpgList:
+                print(jpgList)
