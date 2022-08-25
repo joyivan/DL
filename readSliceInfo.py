@@ -16,7 +16,7 @@ if __name__ == '__main__':
     print(workDIR)
     for root, dirs, files in os.walk(workDIR):
         for dir in dirs:
-            dimList = glob.glob(os.path.join(root, dir, '*.jpg'))
+            dimList = glob.glob(os.path.join(root, dir, '*.dcm'))
             print('dir is ', dir)
             sliceLocationFileNameList=[]
             slicelocationList=[]
