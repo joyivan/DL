@@ -1,8 +1,8 @@
 import shutil
 import os
 import numpy as np
-
-
+#from npy file pick postive slice DICOM
+import joblib
 
 
 def creatDir(Dir):
@@ -16,7 +16,8 @@ def cpDir(source,destinst):
 work_dir='/media/joyivan/OLD/data/CT_MD_JPG/'
 
 if __name__=='__main__':
-    sliceInfo=np.load(work_dir+'Slice-level-labels-updated-1.npy',allow_pickle=True)
+    #using old npy file  new:Slice-level-labels-updated-1
+    sliceInfo=np.load(work_dir+'Slice-level-labels-updated-1.npy')
     print('sliceInfo data type is '+str(type(sliceInfo)))
 #1-54:covid  55:79:cap
     destDir=work_dir+'sliceData'+'/covidSlice'
