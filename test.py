@@ -8,3 +8,5 @@ print(data0)
 print(data0[0x0020,0x1041].value)
 pixArray=np.array(data0.pixel_array)
 print(np.max(pixArray))
+from playsound import playsound
+playsound("/home/joyivan/Downloads/non.mp3")
