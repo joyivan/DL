@@ -2,7 +2,7 @@ import os
 import shutil
 import pandas as pd
 import numpy as np
-# data postion:/media/joyivan/OLD/data/CT_MD_JPG
+# data postion:/media/joyivan/OLD/data/CT_MD_DCM
 #co_cap_Data means the data include post case aka covid-19 and cap case
 def creatDir(Dir):
     if not os.path.isdir(Dir):
@@ -11,14 +11,14 @@ def cpDir(source,destinst):
     fileList=os.listdir(source)
     for i in fileList:
         print(i)
-        if i[-3:]=='jpg':
+        if i[-3:]=='dcm':
             print(source+'/'+i)
             print(destinst+'/')
             shutil.copyfile(source+'/'+i,destinst+'/'+i)
 
 if __name__=='__main__':
     # U can switch on/off using "..." the function below here can generate cap and covid case
-    work_dir='/media/joyivan/OLD/data/CT_MD_JPG/'
+    work_dir='/media/joyivan/OLD/data/CT_MD_DCM/'
     print(work_dir+'Index.csv')
     co_cap_Data=pd.read_csv(work_dir+'Index.csv')
     dirList=co_cap_Data['Folder/ID']
