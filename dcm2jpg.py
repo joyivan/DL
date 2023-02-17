@@ -24,13 +24,13 @@ def d2j(fileName):
     basePart,filePart=os.path.split(fileName)
     file,ex=filePart.split('.') 
     newFile=os.path.join(basePart,file+'.jpg')
-    print(newFile)
+    print('fileName after convert:',newFile)
     imageio.imwrite(newFile,img) 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-baseDIR', type=str, default='f:\COVID-19\CT_MD', help='gl')
+    parser.add_argument('-baseDIR', type=str, default='/media/joyivan/0a1457c2-893b-40d4-bd3f-a5316e4b4854/CT_MD', help='gl')
     parser.add_argument('-orginDIR', type=str, default='Cap_Cases', help='gl')
-    parser.add_argument('-destDIR', type=str, default='Cap_ Cases', help='gl')
+    parser.add_argument('-destDIR', type=str, default='Cap_Cases', help='gl')
     opt=parser.parse_args()
     print(opt)
     
@@ -41,20 +41,23 @@ if __name__ == '__main__':
         for dir in dirs: 
             dimList=glob.glob(os.path.join(root,dir,'*.dcm'))
             print('dir is ',dir)
+            print('dirList is ',dimList)
             for i in dimList:
-                d2j2(i)
+                d2j(i)
             #print(dimList)
-
+'''
             jpgList=glob.glob(os.path.join(root,dir,datetime.datetime.now().strftime('%Y%m%d'),\
                dir+'_jpg','__CT_','*.jpg'))
-            print(jpgList)
+            print('jpgList:',jpgList)
              
             for j in jpgList:
                 shutil.move(j,os.path.join(root,dir))
             _jpgList=glob.glob(os.path.join(root,dir,'*.jpg'))
+            print("_jpgList is",_jpgList)
             #stk_code =1
             #stk_code = str(stk_code).zfill(6)
             print(_jpgList)
             for k in _jpgList:
                 digiPart=os.path.split(k)[1][5:].split('.')[0].zfill(4)
                 os.rename(k,os.path.join(root,dir,'IM'+digiPart+'.jpg')) 
+'''
