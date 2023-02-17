@@ -3,6 +3,7 @@ import os
 import numpy as np
 #from npy file pick postive slice DICOM
 import joblib
+import pandas as pd
 
 
 def creatDir(Dir):
@@ -13,7 +14,7 @@ def cpDir(source,destinst):
             print(destinst+'/')
             shutil.copyfile(source+'/'+i,destinst+'/'+i)
 
-work_dir='/media/joyivan/OLD/data/CT_MD_JPG/'
+work_dir='/media/joyivan/OLD/data/CT_MD_DCM/'
 
 if __name__=='__main__':
     #using old npy file  new:Slice-level-labels-updated-1
@@ -22,7 +23,10 @@ if __name__=='__main__':
 #1-54:covid  55:79:cap
     destDir=work_dir+'sliceData'+'/covidSlice'
     creatDir(destDir)
+    csvSliceInf=pd.read_csv('Index.csv')
+
     for i in range(1,55):
+
         sliceIndex=np.where(sliceInfo[i-1]==1)
         for j in sliceIndex[0]:
             shutil.copyfile(work_dir+'sliceData/covid-19/P'+str(i).zfill(3)+'/IM'+str(j).zfill(4)+'.jpg',destDir+'/P'+\

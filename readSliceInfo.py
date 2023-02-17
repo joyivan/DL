@@ -6,7 +6,7 @@ from playsound import playsound
 
 
 #sort jpg from dicom information
-work_dir='/media/joyivan/OLD/data/CT_MD_JPG/'
+work_dir='/media/joyivan/OLD/data/CT_MD_DCM/'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

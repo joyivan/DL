@@ -2,7 +2,7 @@ import argparse
 import os
 import glob
 #rename drop check String in filename
-work_dir='/media/joyivan/OLD/data/CT_MD_JPG/'
+work_dir='/media/joyivan/OLD/data/CT_MD_DCM/'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
